@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eleadmin.common.system.mapper.GoodsMapper">
+
+    <!-- 关联查询sql -->
+    <sql id="selectSql">
+        SELECT a.*
+        FROM goods a
+        <where>
+            <if test="param.id != null">
+                AND a.ID = #{param.id}
+            </if>
+            <if test="param.goodid != null">
+                AND a.GoodID LIKE CONCAT('%', #{param.goodid}, '%')
+            </if>
+            <if test="param.title != null">
+                AND a.Title LIKE CONCAT('%', #{param.title}, '%')
+            </if>
+            <if test="param.goodtype != null">
+                AND a.GoodType LIKE CONCAT('%', #{param.goodtype}, '%')
+            </if>
+            <if test="param.createtime != null">
+                AND a.CreateTime LIKE CONCAT('%', #{param.createtime}, '%')
+            </if>
+            <if test="param.creatorid != null">
+                AND a.CreatorID LIKE CONCAT('%', #{param.creatorid}, '%')
+            </if>
+            <if test="param.changedate != null">
+                AND a.ChangeDate LIKE CONCAT('%', #{param.changedate}, '%')
+            </if>
+            <if test="param.changorid != null">
+                AND a.ChangorID LIKE CONCAT('%', #{param.changorid}, '%')
+            </if>
+            <if test="param.price != null">
+                AND a.Price = #{param.price}
+            </if>
+        </where>
+    </sql>
+
+    <!-- 分页查询 -->
+    <select id="selectPageRel" resultType="com.eleadmin.common.system.entity.Goods">
+        <include refid="selectSql"></include>
+    </select>
+
+    <!-- 查询全部 -->
+    <select id="selectListRel" resultType="com.eleadmin.common.system.entity.Goods">
+        <include refid="selectSql"></include>
+    </select>
+
+</mapper>
